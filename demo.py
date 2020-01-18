@@ -15,7 +15,11 @@
 # Contact: ps-license@tuebingen.mpg.de
 
 import os
-os.environ['PYOPENGL_PLATFORM'] = 'egl'
+from OpenGL.GL import *
+from OpenGL.GLU import *
+from OpenGL.GLUT import *
+
+#os.environ['PYOPENGL_PLATFORM'] = ''
 
 import cv2
 import time
@@ -68,7 +72,7 @@ def main(args):
     output_path = os.path.join(args.output_folder, os.path.basename(video_file).replace('.mp4', ''))
     os.makedirs(output_path, exist_ok=True)
 
-    image_folder, num_frames, img_shape = video_to_images(video_file, return_info=True)
+    image_folder, num_frames, img_shape = video_to_images(video_file,"./tmp", return_info=True)
 
     print(f'Input video number of frames {num_frames}')
     orig_height, orig_width = img_shape[:2]
@@ -109,7 +113,7 @@ def main(args):
 
     # ========= Load pretrained weights ========= #
     pretrained_file = download_ckpt(use_3dpw=False)
-    ckpt = torch.load(pretrained_file)
+    ckpt = torch.load("./vibe_model_wo_3dpw.pth.tar")
     print(f'Performance of pretrained model on 3DPW: {ckpt["performance"]}')
     ckpt = ckpt['gen_state_dict']
     model.load_state_dict(ckpt, strict=False)

@@ -196,7 +196,7 @@ class VIBE_Demo(nn.Module):
             batch_size=64,
             n_layers=1,
             hidden_size=2048,
-            pretrained='data/vibe_data/spin_model_checkpoint.pth.tar',
+            pretrained='./spin_model_checkpoint.pth.tar',
             add_linear=False,
             bidirectional=False,
             attention=False,
